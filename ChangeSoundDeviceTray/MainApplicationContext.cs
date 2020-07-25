@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using AudioSwitcher.AudioApi;
 using AudioSwitcher.AudioApi.CoreAudio;
 using System.Reflection;
+using System.Threading;
 
 namespace ChangeSoundDeviceTray
 {
@@ -21,27 +22,68 @@ namespace ChangeSoundDeviceTray
         List<MenuItem> ContextMenuItems;
         CoreAudioController AudioController;
         DeviceObserver deviceObserver;
+
         public MainApplicationContext()
         {
             Icon myIcon = PrepareIcon();
+            PrepareObjects();
+            AudioController.AudioDeviceChanged.Subscribe(deviceObserver);
+            PrepareContextMenu();
+            PrepareNotifyIcon(myIcon);
+        }
+
+        private void PrepareObjects()
+        {
             contextMenu = new ContextMenu();
             ContextMenuItems = new List<MenuItem>();
             Devices = new List<CoreAudioDevice>();
             AudioController = new CoreAudioController();
             deviceObserver = new DeviceObserver(this);
-            AudioController.AudioDeviceChanged.Subscribe(deviceObserver);
-            PrepareContextMenu();
+        }
+
+        private void PrepareNotifyIcon(Icon myIcon)
+        {
             trayIcon = new NotifyIcon()
             {
                 Icon = myIcon,
                 ContextMenu = contextMenu,
-                Visible = true
+                Visible = true,
             };
+            trayIcon.BalloonTipClicked += TrayIcon_BalloonTipClicked;
         }
+
+        private void TrayIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            var notifyIcon = sender as NotifyIcon;
+            if (notifyIcon.BalloonTipTitle.Equals(BalloonTipConsts.DEVICE_ADDED))
+            {
+                SetDefaultDeviceByName(notifyIcon.BalloonTipText);
+            }
+        }
+
         public void RefreshContextMenu()
         {
             PrepareContextMenu();
         }
+        public void NotifyAddedDevice(string deviceName)
+        {
+            EventHandler temp = DoNotifyAddedDevice;
+            temp?.Invoke(deviceName, null);
+        }
+
+        private void DoNotifyAddedDevice(object sender, EventArgs e)
+        {
+            ShowBalloonToolTip(BalloonTipConsts.DEVICE_ADDED, sender.ToString(), ToolTipIcon.Info, BalloonTipConsts.TIMEOUT);
+        }
+
+        private void ShowBalloonToolTip(string balloonToolTipTitle, string deviceName, ToolTipIcon toolTipIcon, int timeout)
+        {
+            trayIcon.BalloonTipTitle = balloonToolTipTitle;
+            trayIcon.BalloonTipText = deviceName;
+            trayIcon.BalloonTipIcon = toolTipIcon;
+            trayIcon.ShowBalloonTip(timeout);
+        }
+
         List<CoreAudioDevice> GetAllValidSoundDevices()
         {
             var devices = AudioController.GetDevices();
@@ -66,8 +108,10 @@ namespace ChangeSoundDeviceTray
             Devices = GetAllValidSoundDevices();
             foreach (var device in Devices.ToList())
             {
-                MenuItem menuItemDevice = new MenuItem(device.InterfaceName, onDeviceClick);
-                menuItemDevice.Tag = device;
+                MenuItem menuItemDevice = new MenuItem(device.InterfaceName, OnDeviceClick)
+                {
+                    Tag = device
+                };
                 ContextMenuItems.Add(menuItemDevice);
                 contextMenu.MenuItems.AddRange(ContextMenuItems.ToArray());
             }
@@ -78,20 +122,32 @@ namespace ChangeSoundDeviceTray
                 menuItemDefault.Checked = true;
             }
         }
-        void onDeviceClick (object sender, EventArgs e)
+        void OnDeviceClick (object sender, EventArgs e)
         {
             if (!(sender is MenuItem))
                 return;
 
             var menuItem = sender as MenuItem;
             CoreAudioDevice selectedAudioDevice = menuItem.Tag as CoreAudioDevice;
-            bool isDefDeviceSet = selectedAudioDevice.SetAsDefault();
-            if(isDefDeviceSet)
-                selectedAudioDevice.SetAsDefaultCommunications();
+            SetDefaultDeviceByObject(selectedAudioDevice);
+        }
+        void SetDefaultDeviceByName(string name)
+        {
+            var device = Devices.Find(x => x.InterfaceName == name);
+            if(device != null)
+                SetDefaultDeviceByObject(device);
+        }
+
+        bool SetDefaultDeviceByObject(CoreAudioDevice coreAudioDevice)
+        {
+            bool isDefDeviceSet = coreAudioDevice.SetAsDefault();
+            if (isDefDeviceSet)
+                coreAudioDevice.SetAsDefaultCommunications();
             if (isDefDeviceSet)
             {
-
+                return true;
             }
+            return false;
         }
         private static Icon PrepareIcon()
         {
@@ -100,10 +156,6 @@ namespace ChangeSoundDeviceTray
             Icon myIcon = Icon.FromHandle(Hicon);
             return myIcon;
         }
-        void Exit(object sender, EventArgs e)
-        {
-            trayIcon.Visible = false;
-            Application.Exit();
-        }
+        
     }
 }

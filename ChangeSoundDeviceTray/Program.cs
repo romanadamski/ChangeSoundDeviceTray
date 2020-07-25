@@ -8,7 +8,6 @@ namespace ChangeSoundDeviceTray
 {
     static class Program
     {
-        static MainApplicationContext MainApplicationContext;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
