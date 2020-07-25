@@ -1,0 +1,9 @@
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.Properties.Resources.resources
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.csproj.GenerateResource.cache
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.csproj.CoreCompileInputs.cache
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\bin\Debug\ChangeSoundDeviceTray.exe.config
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\bin\Debug\ChangeSoundDeviceTray.exe
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\bin\Debug\ChangeSoundDeviceTray.pdb
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.exe
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.pdb
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Debug\ChangeSoundDeviceTray.csprojAssemblyReference.cache

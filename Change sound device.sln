@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30114.105
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChangeSoundDeviceTray", "ChangeSoundDeviceTray\ChangeSoundDeviceTray.csproj", "{521EB212-9638-4587-92C0-394787367A19}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AudioSwitcher.AudioApi", "AudioSwitcher.AudioApi\AudioSwitcher.AudioApi.shproj", "{DADCC2DF-7738-4598-A2F3-95E41B5E2C34}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "AudioSwitcher.AudioApi.CoreAudio", "AudioSwitcher.AudioApi.CoreAudio\AudioSwitcher.AudioApi.CoreAudio.shproj", "{D0D66A7C-BBB0-4EAD-8A0A-8A30671D7FF3}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		AudioSwitcher.AudioApi.CoreAudio\AudioSwitcher.AudioApi.CoreAudio.projitems*{521eb212-9638-4587-92c0-394787367a19}*SharedItemsImports = 4
+		AudioSwitcher.AudioApi\AudioSwitcher.AudioApi.projitems*{521eb212-9638-4587-92c0-394787367a19}*SharedItemsImports = 4
+		AudioSwitcher.AudioApi.CoreAudio\AudioSwitcher.AudioApi.CoreAudio.projitems*{d0d66a7c-bbb0-4ead-8a0a-8a30671d7ff3}*SharedItemsImports = 13
+		AudioSwitcher.AudioApi\AudioSwitcher.AudioApi.projitems*{dadcc2df-7738-4598-a2f3-95e41b5e2c34}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{521EB212-9638-4587-92C0-394787367A19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{521EB212-9638-4587-92C0-394787367A19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{521EB212-9638-4587-92C0-394787367A19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{521EB212-9638-4587-92C0-394787367A19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F206A3DF-7CAA-4F03-A050-F14B5408E219}
+	EndGlobalSection
+EndGlobal
