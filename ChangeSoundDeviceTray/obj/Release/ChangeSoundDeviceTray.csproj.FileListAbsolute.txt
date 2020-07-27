@@ -6,3 +6,4 @@ C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Release\Ch
 C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Release\ChangeSoundDeviceTray.csproj.CoreCompileInputs.cache
 C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Release\ChangeSoundDeviceTray.exe
 C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Release\ChangeSoundDeviceTray.pdb
+C:\Users\rada\Desktop\ChangeSoundDeviceTray\ChangeSoundDeviceTray\obj\Release\ChangeSoundDeviceTray.SettingsView.resources

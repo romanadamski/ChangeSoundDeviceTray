@@ -18,10 +18,11 @@ namespace ChangeSoundDeviceTray
     {
         NotifyIcon trayIcon;
         ContextMenu contextMenu;
-        List<CoreAudioDevice> Devices;
+        public List<CoreAudioDevice> Devices;
         List<MenuItem> ContextMenuItems;
         CoreAudioController AudioController;
         DeviceObserver deviceObserver;
+        SettingsView SettingsView;
 
         public MainApplicationContext()
         {
@@ -39,6 +40,14 @@ namespace ChangeSoundDeviceTray
             Devices = new List<CoreAudioDevice>();
             AudioController = new CoreAudioController();
             deviceObserver = new DeviceObserver(this);
+            SettingsView = new SettingsView(this);
+            SettingsView.FormClosing += SettingsView_FormClosing;
+        }
+
+        private void SettingsView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            SettingsView.Hide();
         }
 
         private void PrepareNotifyIcon(Icon myIcon)
@@ -50,6 +59,12 @@ namespace ChangeSoundDeviceTray
                 Visible = true,
             };
             trayIcon.BalloonTipClicked += TrayIcon_BalloonTipClicked;
+            trayIcon.DoubleClick += TrayIcon_DoubleClick;
+        }
+
+        private void TrayIcon_DoubleClick(object sender, EventArgs e)
+        {
+            SettingsView.Show();
         }
 
         private void TrayIcon_BalloonTipClicked(object sender, EventArgs e)
@@ -75,7 +90,10 @@ namespace ChangeSoundDeviceTray
         {
             ShowBalloonToolTip(BalloonTipConsts.DEVICE_ADDED, sender.ToString(), ToolTipIcon.Info, BalloonTipConsts.TIMEOUT);
         }
-
+        public void SetDefaultDeviceBySettings()
+        {
+            SetDefaultDeviceByName(Settings.Default.defaultDevice);
+        }
         private void ShowBalloonToolTip(string balloonToolTipTitle, string deviceName, ToolTipIcon toolTipIcon, int timeout)
         {
             trayIcon.BalloonTipTitle = balloonToolTipTitle;

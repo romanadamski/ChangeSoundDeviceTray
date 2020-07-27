@@ -29,6 +29,7 @@ namespace ChangeSoundDeviceTray
             if(value.ChangedType == DeviceChangedType.DeviceAdded)
             {
                 mainApplicationContext.NotifyAddedDevice(value.Device.InterfaceName);
+                mainApplicationContext.SetDefaultDeviceBySettings();
             }
         }
     }
