@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="ApplicationSettings.cs" />
     <Compile Include="BalloonTipConsts.cs" />
+    <Compile Include="Fixes.cs" />
     <Compile Include="MainApplicationContext.cs" />
     <Compile Include="DeviceObserver.cs" />
     <Compile Include="Program.cs" />

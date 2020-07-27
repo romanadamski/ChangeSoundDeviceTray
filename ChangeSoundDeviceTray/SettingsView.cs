@@ -79,19 +79,13 @@ namespace ChangeSoundDeviceTray
             base.Hide();
         }
 
-        private void checkBox_startWithWindows_CheckedChanged(object sender, EventArgs e)
-        {
-            var checkbox = sender as CheckBox;
-            Properties.Settings.Default.startWithWindows = checkbox.Checked;
-        }
-
         private void button_saveSettings_Click(object sender, EventArgs e)
         {
             if(
                 ChangeSettings_StartWithWindows(Properties.Settings.Default.startWithWindows)
-
                 )
             {
+                Properties.Settings.Default.defaultDevice = comboBox_devices.SelectedItem.ToString();
                 Properties.Settings.Default.Save();
             }
             Hide();
@@ -100,9 +94,15 @@ namespace ChangeSoundDeviceTray
         {
             LoadSettings(defaultSettings);
         }
+        private void button_exit_Click(object sender, EventArgs e)
+        {
+            Hide();
+            MainApplicationContext.Exit();
+        }
 
         private bool ChangeSettings_StartWithWindows(bool startWithWindows)
         {
+            Properties.Settings.Default.startWithWindows = checkBox_startWithWindows.Checked;
             try
             {
                 using (RegistryKey key = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true))
@@ -129,8 +129,7 @@ namespace ChangeSoundDeviceTray
         {
             if (!changeDefaultDevice)
                 return;
-            Properties.Settings.Default.defaultDevice = comboBox_devices.SelectedItem.ToString();
-            label_defaultDevice.Text = Properties.Settings.Default.defaultDevice;
+            label_defaultDevice.Text = comboBox_devices.SelectedItem.ToString();
         }
     }
 }

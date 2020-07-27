@@ -60,8 +60,15 @@ namespace ChangeSoundDeviceTray
             };
             trayIcon.BalloonTipClicked += TrayIcon_BalloonTipClicked;
             trayIcon.DoubleClick += TrayIcon_DoubleClick;
+            CoreAudioDevice defaultDevice = GetDefaultDevice();
+            SetToolTip(defaultDevice.InterfaceName);
         }
 
+        void SetToolTip(string device)
+        {
+            if(trayIcon != null)
+                Fixes.SetNotifyIconText(trayIcon, string.Format("Domyślne urządzenie: {0}", device));
+        }
         private void TrayIcon_DoubleClick(object sender, EventArgs e)
         {
             SettingsView.Show();
@@ -75,7 +82,6 @@ namespace ChangeSoundDeviceTray
                 SetDefaultDeviceByName(notifyIcon.BalloonTipText);
             }
         }
-
         public void RefreshContextMenu()
         {
             PrepareContextMenu();
@@ -133,13 +139,20 @@ namespace ChangeSoundDeviceTray
                 ContextMenuItems.Add(menuItemDevice);
                 contextMenu.MenuItems.AddRange(ContextMenuItems.ToArray());
             }
-            var defaultDevice = AudioController.GetDefaultDevice(DeviceType.Playback, Role.Multimedia);
+            CoreAudioDevice defaultDevice = GetDefaultDevice();
             MenuItem menuItemDefault = ContextMenuItems.Find(x => ((CoreAudioDevice)x.Tag).FullName == defaultDevice.FullName);
             if (menuItemDefault != null)
             {
                 menuItemDefault.Checked = true;
+                SetToolTip(defaultDevice.InterfaceName);
             }
         }
+
+        private CoreAudioDevice GetDefaultDevice()
+        {
+            return AudioController.GetDefaultDevice(DeviceType.Playback, Role.Multimedia);
+        }
+
         void OnDeviceClick (object sender, EventArgs e)
         {
             if (!(sender is MenuItem))
@@ -163,6 +176,7 @@ namespace ChangeSoundDeviceTray
                 coreAudioDevice.SetAsDefaultCommunications();
             if (isDefDeviceSet)
             {
+                SetToolTip(coreAudioDevice.InterfaceName);
                 return true;
             }
             return false;
@@ -174,6 +188,10 @@ namespace ChangeSoundDeviceTray
             Icon myIcon = Icon.FromHandle(Hicon);
             return myIcon;
         }
-        
+        public void Exit()
+        {
+            trayIcon.Visible = false;
+            Environment.Exit(0);
+        }
     }
 }

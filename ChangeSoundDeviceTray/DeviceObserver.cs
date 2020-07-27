@@ -25,12 +25,12 @@ namespace ChangeSoundDeviceTray
 
         public void OnNext(DeviceChangedArgs value)
         {
-            mainApplicationContext.RefreshContextMenu();
             if(value.ChangedType == DeviceChangedType.DeviceAdded)
             {
                 mainApplicationContext.NotifyAddedDevice(value.Device.InterfaceName);
                 mainApplicationContext.SetDefaultDeviceBySettings();
             }
+            mainApplicationContext.RefreshContextMenu();
         }
     }
 }

@@ -37,6 +37,7 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.label_defaultDevice = new System.Windows.Forms.Label();
             this.button_undoChanges = new System.Windows.Forms.Button();
+            this.button_exit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // checkBox_startWithWindows
@@ -48,11 +49,10 @@
             this.checkBox_startWithWindows.TabIndex = 0;
             this.checkBox_startWithWindows.Text = "Uruchamiaj przy starcie systemu";
             this.checkBox_startWithWindows.UseVisualStyleBackColor = true;
-            this.checkBox_startWithWindows.CheckedChanged += new System.EventHandler(this.checkBox_startWithWindows_CheckedChanged);
             // 
             // button_saveSettings
             // 
-            this.button_saveSettings.Location = new System.Drawing.Point(331, 204);
+            this.button_saveSettings.Location = new System.Drawing.Point(12, 204);
             this.button_saveSettings.Name = "button_saveSettings";
             this.button_saveSettings.Size = new System.Drawing.Size(75, 23);
             this.button_saveSettings.TabIndex = 1;
@@ -89,7 +89,7 @@
             // 
             // button_undoChanges
             // 
-            this.button_undoChanges.Location = new System.Drawing.Point(239, 204);
+            this.button_undoChanges.Location = new System.Drawing.Point(93, 204);
             this.button_undoChanges.Name = "button_undoChanges";
             this.button_undoChanges.Size = new System.Drawing.Size(86, 23);
             this.button_undoChanges.TabIndex = 5;
@@ -97,11 +97,22 @@
             this.button_undoChanges.UseVisualStyleBackColor = true;
             this.button_undoChanges.Click += new System.EventHandler(this.button_undoChanges_Click);
             // 
+            // button_exit
+            // 
+            this.button_exit.Location = new System.Drawing.Point(331, 204);
+            this.button_exit.Name = "button_exit";
+            this.button_exit.Size = new System.Drawing.Size(75, 23);
+            this.button_exit.TabIndex = 6;
+            this.button_exit.Text = "Zakończ";
+            this.button_exit.UseVisualStyleBackColor = true;
+            this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
+            // 
             // SettingsView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(418, 239);
+            this.Controls.Add(this.button_exit);
             this.Controls.Add(this.button_undoChanges);
             this.Controls.Add(this.label_defaultDevice);
             this.Controls.Add(this.label_devices);
@@ -127,5 +138,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Label label_defaultDevice;
         private System.Windows.Forms.Button button_undoChanges;
+        private System.Windows.Forms.Button button_exit;
     }
 }
