@@ -64,6 +64,7 @@ namespace ChangeSoundDeviceTray
             SetDevicesCombobox();
             SetDefaultSettings();
             LoadSettings(Properties.Settings.Default);
+            SetTopLevel(true);
             base.Show();
         }
 
@@ -85,7 +86,7 @@ namespace ChangeSoundDeviceTray
                 ChangeSettings_StartWithWindows(Properties.Settings.Default.startWithWindows)
                 )
             {
-                Properties.Settings.Default.defaultDevice = comboBox_devices.SelectedItem.ToString();
+                Properties.Settings.Default.defaultDevice = label_defaultDevice.Text;
                 Properties.Settings.Default.Save();
             }
             Hide();

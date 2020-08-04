@@ -98,8 +98,15 @@ namespace ChangeSoundDeviceTray
         }
         public void SetDefaultDeviceBySettings()
         {
-            SetDefaultDeviceByName(Settings.Default.defaultDevice);
+            EventHandler temp = DoSetDefaultDeviceByName;
+            temp?.Invoke(Settings.Default.defaultDevice, null);
         }
+
+        private void DoSetDefaultDeviceByName(object sender, EventArgs e)
+        {
+            SetDefaultDeviceByName(sender.ToString());
+        }
+
         private void ShowBalloonToolTip(string balloonToolTipTitle, string deviceName, ToolTipIcon toolTipIcon, int timeout)
         {
             trayIcon.BalloonTipTitle = balloonToolTipTitle;

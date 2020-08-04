@@ -20,17 +20,19 @@ namespace ChangeSoundDeviceTray
 
         public void OnError(Exception error)
         {
-            throw new NotImplementedException();
+
         }
 
         public void OnNext(DeviceChangedArgs value)
         {
-            if(value.ChangedType == DeviceChangedType.DeviceAdded)
-            {
+            //todo on next
+            if (value.ChangedType == DeviceChangedType.DeviceAdded)
                 mainApplicationContext.NotifyAddedDevice(value.Device.InterfaceName);
+            mainApplicationContext.RefreshContextMenu();
+            if (value.ChangedType == DeviceChangedType.DeviceAdded)
+            {
                 mainApplicationContext.SetDefaultDeviceBySettings();
             }
-            mainApplicationContext.RefreshContextMenu();
         }
     }
 }
